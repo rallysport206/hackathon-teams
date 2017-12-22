@@ -2,6 +2,7 @@ var express = require('express');
 var fs = require('fs');
 var teamService = require('../models/teamService');
 var router = express.Router();
+// var db = require('../models');
 
 router.get('/', function(req, res) {
   var teams = teamService.allTeams();
@@ -10,8 +11,12 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
   teamService.addTeam(req.body);
-
   res.redirect('/teams');
+});
+router.delete('/:name', function(req, res) {
+  // console.log('test this:', req.params.name);
+  teamService.deleteTeam(req.params.name);
+  res.send('success')
 });
 
 router.get('/new', function(req, res) {
